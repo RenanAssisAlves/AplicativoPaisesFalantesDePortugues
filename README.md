@@ -2,7 +2,7 @@
 
 # Portuguese-Speaking Countries Application
 
-App for Android devices developed in java, that obtains informations of portuguese-speaking countries through restcountries.eu api consuming
+App for Android devices developed in Java, that obtains information of portuguese-speaking countries through restcountries.eu api consuming
 
 ## Tecnologies
 - Android/Java
