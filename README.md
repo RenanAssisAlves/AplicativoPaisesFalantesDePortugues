@@ -1,9 +1,9 @@
-![Exemplo de funcionamento](docs/record_new.gif)
+![Application Preview](docs/record_new.gif)
 
-# Aplicativo Paises Falantes da Língua Portuguesa
+# Portuguese-Speaking Countries Application
 
-App desenvolvido em java para desenvolvimento Android, que obtém informações de países falantes da língua portuguesa, acessando a api do site restcountries.eu
+App for Android devices developed in java, that obtains informations of portuguese-speaking countries through restcountries.eu api consuming
 
-## Tecnologias
+## Tecnologies
 - Android/Java
-- Integração com api gratuita restcountries.eu
+- Integration with free api restcountries.eu
