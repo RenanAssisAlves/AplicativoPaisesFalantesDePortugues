@@ -10,59 +10,62 @@ import android.widget.Button;
 
 public class detalhes_pais extends AppCompatActivity {
 
+    String nome = null;
+    String capital = null;
+    String regiao = null;
+    String subregiao = null;
+    String populacao = null;
+    String bandeira = null;
+    Double coordenadasLat = 0.0;
+    Double coordenadasLong = 0.0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_pais);
-        System.out.println("teste");
+
         Bundle b = getIntent().getExtras();
 
-
-        String nome = null; // or other values
         if(b != null)
             nome = b.getString("nome");
             System.out.println(nome);
 
-        String capital = null; // or other values
+
         if(b != null)
             capital = b.getString("capital");
         System.out.println(capital);
 
-        String regiao = null; // or other values
+
         if(b != null)
             regiao = b.getString("regiao");
         System.out.println(regiao);
 
-        String subregiao = null; // or other values
+
         if(b != null)
             subregiao = b.getString("subregiao");
         System.out.println(subregiao);
 
-        String populacao = null; // or other values
+
         if(b != null)
             populacao = b.getString("populacao");
         System.out.println(populacao);
 
-        String bandeira = null; // or other values
+
         if(b != null)
             bandeira = b.getString("bandeira");
         System.out.println(bandeira);
 
+
+        if(b != null)
+            coordenadasLat = b.getDouble("coordenadasLat");
+        System.out.println(coordenadasLat);
+
+
+        if(b != null)
+            coordenadasLong = b.getDouble("coordenadasLong");
+        System.out.println(coordenadasLong);
+
         WebView myWebView = (WebView) findViewById(R.id.webview);
-//        myWebView.loadUrl(bandeira);
-//        String unencodedHtml =
-//                "&lt;!DOCTYPE html&gt; &lt;html lang=&quot;en&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt; &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt; &lt;title&gt;Detalhes Pa&iacute;s&lt;/title&gt;" +
-//                        " &lt;div style=&quot;position: relative; margin-left: 40%;&quot;&gt; &lt;img src=&quot; " + bandeira +  "&quot;&gt; &lt;/div&gt;" +
-//                        " &lt;div style=&quot;position: relative; background-color: cyan; border-radius: 1cm;&quot;&gt; &lt;div style=&quot;margin-left: 10px;&quot;&gt; &lt;br&gt;" +
-//                        " &lt;h1&gt;Nome : " + nome + "&lt;/h1&gt;" +
-//                        " &lt;h1&gt;Capital : " + capital + "&lt;/h1&gt; " +
-//                        "&lt;h1&gt;Regiao : " + regiao + "&lt;/h1&gt;" +
-//                        " &lt;h1&gt;Populacao : " + populacao + "&lt;/h1&gt;" +
-//                        " &lt;h1&gt;Bandeira : " + bandeira + "&lt;/h1&gt;" +
-//                        " &lt;br&gt; &lt;/div&gt; &lt;/div&gt; &lt;/head&gt; &lt;body&gt; &lt;/body&gt; &lt;/html&gt;";
-//        String encodedHtml = Base64.encodeToString(unencodedHtml.getBytes(),
-//                Base64.NO_PADDING);
-//        myWebView.loadData(encodedHtml, "text/html", "base64");
 
         final String mimeType = "text/html";
         final String encoding = "UTF-8";
@@ -97,7 +100,6 @@ public class detalhes_pais extends AppCompatActivity {
                 "</body>\n" +
                 "</html>";
 
-
         myWebView.loadDataWithBaseURL("", html, mimeType, encoding, "");
 
         Button btnVoltar = findViewById(R.id.btnVoltar);
@@ -106,7 +108,22 @@ public class detalhes_pais extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                   Intent voltarMain = new Intent(detalhes_pais.this, MainActivity.class);
+
                   startActivity(voltarMain);
+            }
+        });
+
+        Button btnMapa = findViewById(R.id.btnMapa);
+
+        btnMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapaActivity = new Intent(detalhes_pais.this, MapsActivity.class);
+                mapaActivity.putExtra("nome", nome);
+                mapaActivity.putExtra("coordenadasLat", coordenadasLat);
+                mapaActivity.putExtra("coordenadasLong", coordenadasLong);
+
+                startActivity(mapaActivity);
             }
         });
     }

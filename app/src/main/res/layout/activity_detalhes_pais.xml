@@ -7,6 +7,17 @@
     tools:context=".detalhes_pais">
 
     <Button
+        android:id="@+id/btnMapa"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:text="Visualizar no mapa"
+        app:layout_constraintBottom_toTopOf="@+id/btnVoltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
         android:id="@+id/btnVoltar"
         android:layout_width="450dp"
         android:layout_height="50dp"

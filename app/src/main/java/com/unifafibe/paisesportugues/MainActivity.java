@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,21 +33,6 @@ public class MainActivity extends AppCompatActivity {
         String url ="https://restcountries.eu/rest/v2/lang/pt";
         List<JSONObject> paises = new ArrayList<>();
         List<String> nomesPaises = new ArrayList<>();
-
-        // Formulate the request and handle the response.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        System.out.println(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println("Não funcionou!");
-                    }
-                });
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -75,10 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // Access the RequestQueue through your singleton class.
         VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
-        //MySingleton.getInstance(this).addToRequestQueue(stringRequest);
-
 
         ArrayAdapter<String> adapterLista = new ArrayAdapter<String>(
                 getApplicationContext(),
@@ -104,19 +87,27 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     Intent janelaDetalhes = new Intent(MainActivity.this, detalhes_pais.class);
-                    String teste0 = paises.get(position).getString("name");
-                    String teste1 = paises.get(position).getString("capital");
-                    String teste2 = paises.get(position).getString("region");
-                    String teste3 = paises.get(position).getString("subregion");
-                    String teste4 = paises.get(position).getString("population");
-                    String teste5 = paises.get(position).getString("flag");
 
-                    janelaDetalhes.putExtra("nome", teste0);
-                    janelaDetalhes.putExtra("capital", teste1);
-                    janelaDetalhes.putExtra("regiao", teste2);
-                    janelaDetalhes.putExtra("subregiao", teste3);
-                    janelaDetalhes.putExtra("populacao", teste4);
-                    janelaDetalhes.putExtra("bandeira", teste5);
+                    String nome = paises.get(position).getString("name");
+                    String capital = paises.get(position).getString("capital");
+                    String regiao = paises.get(position).getString("region");
+                    String subregiao = paises.get(position).getString("subregion");
+                    String populacao = paises.get(position).getString("population");
+                    String bandeira = paises.get(position).getString("flag");
+                    JSONArray coordenadas = paises.get(position).getJSONArray("latlng");
+
+                    Double coordenadasLat = coordenadas.getDouble(0);
+                    Double coordenadasLong = coordenadas.getDouble(1);
+
+                    janelaDetalhes.putExtra("nome", nome);
+                    janelaDetalhes.putExtra("capital", capital);
+                    janelaDetalhes.putExtra("regiao", regiao);
+                    janelaDetalhes.putExtra("subregiao", subregiao);
+                    janelaDetalhes.putExtra("populacao", populacao);
+                    janelaDetalhes.putExtra("bandeira", bandeira);
+
+                    janelaDetalhes.putExtra("coordenadasLat", Double.valueOf(coordenadasLat));
+                    janelaDetalhes.putExtra("coordenadasLong", Double.valueOf(coordenadasLong));
 
                     startActivity(janelaDetalhes);
 
